@@ -44,18 +44,12 @@ Checkout the [pre-requisites](../README.md#pre-requisites-to-deploy-sample-appli
   ```
     download postgresql.template.tgz to cpd-cli-workspace/olm-utils-workspace/work/postgesql.template.tgz
   ```
-  - create postgres app template parameters json file:
-    ```
-    $ cat cpd-cli-workspace/olm-utils-workspace/work/app-parameters-json.json  
-      {"DATABASE_SERVICE_NAME":"postgresql-mcp-context-forge","POSTGRESQL_USER":"postgres","POSTGRESQL_PASSWORD":"secret","POSTGRESQL_DATABASE":"mcp"}
-    ```
 
   - run following cpd-cli command:  
     ```
     ./cpd-cli manage create-oc-template-application --instance_ns=zen  \
         --app_name=postgresql-mcp-context-forge  \
-        --app_template=/tmp/work/postgesql.template.tgz  \
-        --app_template_parameters_json=/tmp/work/app-parameters-json.json \
+        --app_tar_file=/tmp/work/postgesql.template.tgz  \
         --cpu=400m  \
         --memory=200Mi  \
         --cpu_limit=500m  \
