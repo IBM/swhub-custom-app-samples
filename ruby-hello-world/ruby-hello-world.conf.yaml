@@ -1,0 +1,36 @@
+apiVersion: zen.cpd.ibm.com/v1
+kind: ZenExtension
+metadata:
+  name: ruby-hello-world
+spec:
+  extensions: |
+    [
+      {
+        "extension_name": "ruby-hello-world",
+        "extension_type": "nginx",
+        "details": {
+          "upstream_conf": "upstream.conf",
+          "location_conf": "nginx.conf"
+        }
+      }
+    ]
+  upstream.conf: |
+    upstream ruby-hello-world {
+      keepalive 32;
+      keepalive_timeout 30s;
+      keepalive_requests 500;
+      server frontend.{{ .dpPhyLocWorkloadNs }}.svc:5432;
+    }
+  nginx.conf: |
+    location ~* /frontend/(.*) {
+      proxy_http_version 1.1;
+      proxy_set_header Host $host;
+      proxy_set_header Connection "Upgrade";
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_ssl_server_name on;
+      proxy_buffering off;
+      proxy_pass http://ruby-hello-world/$1$is_args$args;
+      proxy_pass_header X-Accel-Buffering;
+      sub_filter '/keys/' '/physical_location/{{ .zenPhysicalLocationName }}/frontend/keys/';
+      sub_filter_once off;
+    }
