@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Code Engine勉強会</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <pre id="taag_output_text" style="float:left;" class="fig" contenteditable="true">
+      ___  __  ____  ____    ____  __ _   ___  __  __ _  ____  ____  ____  ____  ____  __  __   __ _ 
+ / __)/  \(    \(  __)  (  __)(  ( \ / __)(  )(  ( \(  __)/ ___)(  __)/ ___)/ ___)(  )/  \ (  ( \
+( (__(  O )) D ( ) _)    ) _) /    /( (_ \ )( /    / ) _) \___ \ ) _) \___ \\___ \ )((  O )/    /
+ \___)\__/(____/(____)  (____)\_)__) \___/(__)\_)__)(____)(____/(____)(____/(____/(__)\__/ \_)__)
+
+ <div id="podName"> Pod Name :  </div>
+ <div id="configmapValue"> Configmap Value : </div>
+ <div id="bucketName">Bucket Name From Secret: </div>
+
+ <input id="postToICOS" type="button" value="Post File to ICOS" onclick="postfile()">
+ <div id="message"> </div>
+ 
+    </pre>
+  </body>
+</html>
+<script>
+  (function getInfo() {
+    axios.get('/info/get')
+    .then(res => {
+      var podName = res.data.podName;
+      var configmapValue = res.data.configmapValue;
+      var bucketName = res.data.bucketName;
+
+      document.getElementById('podName').innerHTML  += podName;
+      document.getElementById('configmapValue').innerHTML  += configmapValue;
+      document.getElementById('bucketName').innerHTML  += bucketName;
+
+    });
+  })();
+
+  var postfile = function () {
+    axios.post('/info/post')
+    .then(res => {
+      var message = res.data.message;
+      document.getElementById('message').innerHTML  += message;
+    })
+  }
+</script>
