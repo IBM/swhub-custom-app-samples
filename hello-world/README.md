@@ -1,4 +1,4 @@
-# Deploy hello-world application to software hub default dataplane
+# Deploy hello-world application to software hub dataplane
 
 hello-world is an api endpoint that would respond with "hello-world" when invoked from software hub default dataplane
 
