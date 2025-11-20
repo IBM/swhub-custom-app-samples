@@ -1,4 +1,4 @@
-# deploy mcp-context-forge app to software hub default dataplane
+# deploy mcp-context-forge app to software hub dataplane
 
 [ContextForge MCP Gateway](https://github.com/IBM/mcp-context-forge) is a feature-rich gateway, proxy and MCP Registry that federates MCP and REST services - unifying discovery, auth, rate-limiting, observability, virtual servers, multi-transport protocols, and an optional Admin UI into one clean endpoint for your AI clients
 
@@ -29,11 +29,24 @@ Checkout the [pre-requisites](../README.md#pre-requisites-to-deploy-sample-appli
     --dockerfile=Containerfile  \
     --app_envs_json=/tmp/work/app-envs-json-sqlite.json \
     --pvc_info={"size":"2Gi","mount_path":"/data"}  \
-    --app_proxy_config_yaml=/tmp/work/mcp-gateway-forge.conf.yaml \
     --cpu=400m  \
     --memory=200Mi  \
     --cpu_limit=500m  \
     --memory_limit=400Mi
+  ```
+
+- check that the pod is in running status:
+  ```
+  mcp-context-forge-sqlite-tcv6isrcslka-57bcbb95b-dshrl            1/1     Running
+  ```  
+
+- update application proxy config - copy `mcp-gateway-forge.conf.yaml` in this folder to `cpd-cli-workspace/olm-utils-workspace/work/`  
+  ```
+  ./cpd-cli manage update-custom-application-proxy-config \
+  --instance_ns=zen \
+  --app_name= mcp-context-forge-sqlite \
+  --app_run_id=<from create-dockerfile-application> \
+  --app_proxy_config_yaml=mcp-gateway-forge.conf.yaml
   ```
 
 ### deploy mcp-context-forge with postgres database:  
@@ -41,20 +54,27 @@ Checkout the [pre-requisites](../README.md#pre-requisites-to-deploy-sample-appli
   #### deploy postgresql  
 
   - download postgresql template tar
-  ```
+    ```
     download postgresql.template.tgz to cpd-cli-workspace/olm-utils-workspace/work/postgesql.template.tgz
-  ```
+    ```
 
   - run following cpd-cli command:  
     ```
     ./cpd-cli manage create-oc-template-application --instance_ns=zen  \
-        --app_name=postgresql-mcp-context-forge  \
-        --app_tar_file=/tmp/work/postgesql.template.tgz  \
-        --cpu=400m  \
-        --memory=200Mi  \
-        --cpu_limit=500m  \
-        --memory_limit=400Mi
+      --app_name=postgresql-mcp-context-forge  \
+      --app_tar_file=/tmp/work/postgesql.template.tgz  \
+      --cpu=400m  \
+      --memory=200Mi  \
+      --cpu_limit=500m  \
+      --memory_limit=400Mi
     ```
+
+  - check that the pod is in running state:  
+    ```
+    # oc get po -n wl | grep postgres
+    postgresql-mcp-context-forge-1-g4ld7                              1/1     Running
+    ```
+
   #### deploy mcp-context-forge
 
   - create app-envs-json.json:  
@@ -73,9 +93,22 @@ Checkout the [pre-requisites](../README.md#pre-requisites-to-deploy-sample-appli
       --repo_branch=main  \
       --dockerfile=Containerfile  \
       --app_envs_json=/tmp/work/app-envs-json-postgresql.json \
-      --app_proxy_config_yaml=/tmp/work/mcp-gateway-forge.conf.yaml \
       --cpu=400m  \
       --memory=200Mi  \
       --cpu_limit=500m  \
       --memory_limit=400Mi
     ```
+  - check that the pod is in running status:
+    ```
+    mcp-context-forge-postgresql-78bib026k314-57bcbb95b-dshrl            1/1     Running
+    ```  
+  - update application proxy config - copy `mcp-gateway-forge.conf.yaml` in this folder to `cpd-cli-workspace/olm-utils-workspace/work/`  
+    ```
+    ./cpd-cli manage update-custom-application-proxy-config \
+      --instance_ns=zen \
+      --app_name= mcp-context-forge-postgresql \
+      --app_run_id=<from create-dockerfile-application> \
+      --app_proxy_config_yaml=mcp-gateway-forge.conf.yaml
+    ```
+
+ #### application available at `https://zen-route/physical_location/default-pl/<app_name-app_run_id>/admin`

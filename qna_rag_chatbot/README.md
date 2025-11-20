@@ -1,4 +1,4 @@
-# Deploy qna chatbot application to software hub default dataplane
+# Deploy qna chatbot application to software hub dataplane
 
 [Q&A with RAG accelerator](Industry-Accelerators/watsonx.ai/QnA_chatbot_app/readme.md) is Sample Streamlit app that allows a user to ask questions about a given corpus of documents which are answered using a Retrieval Augmented Generation (RAG) approach, app is cloned from [here](https://github.com/IBM/Industry-Accelerators/tree/master/watsonx.ai/QnA_chatbot_app)
 
@@ -10,12 +10,14 @@ this is the instruction doc for deploying the app into software hub default data
 1. Update `QNA_RAG_DEPLOYMENT_URL` and `QNA_RAG_SAAS_IAM_APIKEY` from your deployment environment in qna_rag_chatbot/Industry-Accelerators/watsonx.ai/QnA_chatbot_app/.env
 2. Run the follwing create-dockerfile-application command
 ```
-./cpd-cli manage create-dockerfile-application --instance_ns=<cpd_instance_ns> --app_name=chatbot --app_port=8080 --app_port_tls=false --repo_url=https://github.com/IBM/swhub-custom-app-samples.git --repo_token=<YOUR GITHUB TOKEN> --repo_branch=<your branch with updated .env file in step 1> --repo_app_dir=qna_rag_chatbot/Industry-Accelerators/watsonx.ai/QnA_chatbot_app --cpu=400m --memory=200Mi --cpu_limit=500m --memory_limit=400Mi
+./cpd-cli manage create-dockerfile-application --instance_ns=<cpd_instance_ns> --app_name=qna-rag-chatbot --app_port=8080 --app_port_tls=false --repo_url=https://github.com/IBM/swhub-custom-app-samples.git --repo_token=<YOUR GITHUB TOKEN> --repo_branch=<your branch with updated .env file in step 1> --repo_app_dir=qna_rag_chatbot/Industry-Accelerators/watsonx.ai/QnA_chatbot_app --cpu=400m --memory=200Mi --cpu_limit=500m --memory_limit=400Mi
 ```
 3. Ensure the pods are running in the workload namespace
 ```
-ps-chatbot-demo-l66n2b4a5tra-1-build                              0/1     Completed   0          5d
-ps-chatbot-demo-l66n2b4a5tra-7b75f9d697-s8hqb                     1/1     Running     0          5d
-ps-chatbot-jdsgxjtix71p-6bf7b7c4f7-mz78g                          1/1     Running     0          8d
-ps-chatbot-three-vjzbpxir2vqo-79869dd7cf-m67xd                    1/1     Running     0          8d
+qna-rag-chatbot-l66n2b4a5tra-1-build                              0/1     Completed   0          5d
+qna-rag-chatbot-l66n2b4a5tra-7b75f9d697-s8hqb                     1/1     Running     0          5d
+qna-rag-chatbot-jdsgxjtix71p-6bf7b7c4f7-mz78g                          1/1     Running     0          8d
+qna-rag-chatbot-three-vjzbpxir2vqo-79869dd7cf-m67xd                    1/1     Running     0          8d
 ```
+
+#### application available at `https://zen-route/physical_location/default-pl/<app_name-app_run_id>/`
