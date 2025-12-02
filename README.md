@@ -13,6 +13,7 @@ Custom Apps is built on top of remote dataplanes feature. refer [this doc](https
 - Software Hub Scheduling Service
   refer [this doc](https://www.ibm.com/docs/en/software-hub/5.2.x?topic=cluster-installing-shared-components) for how to install scheduling service as cluster component
 - Software Hub 5.3 premium cartrige and cpd-cli olm-utils premium image
+- Software Hub has been installed and provisioned
 
 To enable default dataplane using cpd-cli:
 
@@ -20,7 +21,7 @@ To enable default dataplane using cpd-cli:
 2. Run `cpd-cli manage login-to-ocp -u kubeadmin -p <password> --server=<ocp_url>`
 3. Run `cpd-cli manage enable-premuim-features --license_acceptance=true --features=enable_rdp --operator_ns=<project name> --instance_ns=<project name> --scheduler_ns=<project>`
 4. Create two namespaces mgmt and workload(wl).
-5. Run `cpd-cli manage enable-default-dataplane --instance_ns=zen --management_ns=mgmt --workload_ns=wl` this command will create a default physical location - `default-pl` and a default dataplane - `default-dp`.
+5. Run `cpd-cli manage enable-default-data-plane --instance_ns=zen --management_ns=mgmt --workload_ns=wl` this command will create a default physical location - `default-pl` and a default dataplane - `default-dp`.
 
 overview of custom applocations included in this example, for demostating application types supported  
 |Name|Application Type|Folder||

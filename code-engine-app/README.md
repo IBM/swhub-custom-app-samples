@@ -32,7 +32,7 @@
     --cpu_limit=500m \
     --memory_limit=400Mi
     ```
-4. If you see this error in step 5 `-build` pod
+4. If you see this error in step 3 `-build` pod
     ```
     Defaulted container "docker-build" out of: docker-build, git-clone (init), manage-dockerfile (init)
     time="2025-10-30T23:58:57Z" level=info msg="Not using native diff for overlay, this may cause degraded performance for building images: kernel has CONFIG_OVERLAY_FS_REDIRECT_DIR enabled"
