@@ -19,7 +19,7 @@ To enable default dataplane using cpd-cli:
 
 1. load olm-utils premium image: `export OLM_UTILS_IMAGE=icr.io/cpopen/cpd/olm-utils-v4:5.3.0-<premium image tag>`
 2. Run `cpd-cli manage login-to-ocp -u kubeadmin -p <password> --server=<ocp_url>`
-3. Run `cpd-cli manage enable-premuim-features --license_acceptance=true --features=enable_rdp --operator_ns=<project name> --instance_ns=<project name> --scheduler_ns=<project>`
+3. Run `cpd-cli manage enable-premuim-features --license_acceptance=true --features=physical-locations --operator_ns=<project name> --instance_ns=<project name> --scheduler_ns=<project>`
 4. Create two namespaces mgmt and workload(wl).
 5. Run `cpd-cli manage enable-default-data-plane --instance_ns=zen --management_ns=mgmt --workload_ns=wl` this command will create a default physical location - `default-pl` and a default dataplane - `default-dp`.
 
