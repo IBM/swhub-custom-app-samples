@@ -37,8 +37,6 @@ curl -X PATCH -sk \
   -d '{"details":"test"}'
 ```
 #### Kubeyaml app
-- Reference from: https://github.ibm.com/PrivateCloud-analytics/BYOA-Samples/tree/main/kube-yaml-sample-one
-
 
 > All cpd-cli commands will be run from the hub
 - Use the `remote-dp-app.tar.gz` in this current workspace
