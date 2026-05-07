@@ -4,7 +4,7 @@
 
 Checkout the [pre-requisites](../README.md#pre-requisites-to-deploy-sample-applications) required before deploying this application.
 
-this instruction requires cpd 5.4.0 or cpd 5.3.1 patch 2 zen and olm-utils. 
+this instruction requires cpd 5.4.0
 
 ### deploy mcp-context-forge with sql lite database:  
 
@@ -42,8 +42,8 @@ this instruction requires cpd 5.4.0 or cpd 5.3.1 patch 2 zen and olm-utils.
     --app_port=4444 \
     --app_port_tls=true \
     --repo_url=https://github.com/IBM/mcp-context-forge.git \
-    --repo_branch=v1.0.0-RC2  \
-    --dockerfile=Containerfile  \
+    --repo_branch=v1.0.0  \
+    --dockerfile=Containerfile.lite  \
     --command_json=/tmp/work/command-json.json \
     --app_envs_json=/tmp/work/app-envs-json-sqlite.json \
     --pvc_info={"size":"2Gi","mount_path":"/data"}  \
@@ -52,9 +52,6 @@ this instruction requires cpd 5.4.0 or cpd 5.3.1 patch 2 zen and olm-utils.
     --cpu_limit=800m  \
     --memory_limit=2Gi
   ```  
-  ***Note:***
-    - --repo_branch=v1.0.0-RC2 can be used together with --repo_url=https://github.com/IBM/mcp-context-forge.git in cpd 5.4.0, otherwise https://github.com/IBM/mcp-context-forge.git need to be forked/cloned somewhere else with branch created based on tag v1.0.0-RC2  
-    - the latest main branch would require images from docker.io  
 
 - check that the pod is in running status:
   ```
@@ -128,8 +125,8 @@ this instruction requires cpd 5.4.0 or cpd 5.3.1 patch 2 zen and olm-utils.
       --app_port=4444 \
       --app_port_tls=true \
       --repo_url=https://github.com/IBM/mcp-context-forge.git \
-      --repo_branch=v1.0.0-RC2  \
-      --dockerfile=Containerfile  \
+      --repo_branch=v1.0.0  \
+      --dockerfile=Containerfile.lite  \
       --command_json=/tmp/work/command-json.json \
       --app_envs_json=/tmp/work/app-envs-json-postgresql.json \
       --cpu=400m  \
@@ -137,10 +134,6 @@ this instruction requires cpd 5.4.0 or cpd 5.3.1 patch 2 zen and olm-utils.
       --cpu_limit=800m  \
       --memory_limit=2Gi
     ```  
-    ***Note:***
-      - --repo_branch=v1.0.0-RC2 can be used together with --repo_url=https://github.com/IBM/mcp-context-forge.git in cpd 5.4.0, otherwise https://github.com/IBM/mcp-context-forge.git need to be forked/cloned somewhere else with branch created based on tag v1.0.0-RC2
-      - the latest main branch would require images from docker.io  
-
 
   - check that the pod is in running status:
     ```
