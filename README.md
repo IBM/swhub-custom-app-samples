@@ -6,22 +6,25 @@ The repo contains collection of custom sample apps that can be deployed into dat
 
 ### Pre-requisites to deploy sample applications
 
-Custom Apps is built on top of remote dataplanes feature. refer [this doc](https://www.ibm.com/docs/en/software-hub/5.2.x?topic=installing-setting-up-remote-physical-location) to understand concept of remote dataplane and physical locations
+**Note** the following document links are based on software hub 5.3.x, will be updated for 5.4 upon release
 
-`default dataplane` is a dataplane that resides locally on a regular software hub cluster, that are designated for deploying custom apps. for setting up default dataplane, the following component are required:  
+Custom Apps is built on top of remote dataplanes feature. refer [this doc](https://www.ibm.com/docs/en/software-hub/5.3.x?topic=installing-setting-up-remote-physical-location) to understand concept of remote dataplane and physical locations
+
+`default dataplane` is a dataplane that resides locally on a regular software hub cluster, that are designated for deploying custom apps. for setting up default dataplane, the following component are required, document for prerequiste are covered by this doc, please refer to relevant cpd docs for installation:  
 
 - Software Hub Scheduling Service
-  refer [this doc](https://www.ibm.com/docs/en/software-hub/5.2.x?topic=cluster-installing-shared-components) for how to install scheduling service as cluster component
+  refer [this doc](https://www.ibm.com/docs/en/software-hub/5.3.x?topic=cluster-installing-shared-components) for how to install scheduling service as cluster component
 - Software Hub 5.3 premium cartrige and cpd-cli olm-utils premium image
-- Software Hub has been installed and provisioned
+- Software Hub has been installed and provisioned (https://www.ibm.com/docs/en/software-hub/5.3.x) with platform ai assistant premuim feature enabled
 
 To enable default dataplane using cpd-cli:
 
 1. load olm-utils premium image: `export OLM_UTILS_IMAGE=icr.io/cpopen/cpd/olm-utils-v4:5.3.0-<premium image tag>`
 2. Run `cpd-cli manage login-to-ocp -u kubeadmin -p <password> --server=<ocp_url>`
-3. Run `cpd-cli manage enable-premuim-features --license_acceptance=true --features=physical-locations --operator_ns=<project name> --instance_ns=<project name> --scheduler_ns=<project>`
-4. Create two namespaces mgmt and workload(wl).
-5. Run `cpd-cli manage enable-default-data-plane --instance_ns=zen --management_ns=mgmt --workload_ns=wl` this command will create a default physical location - `default-pl` and a default dataplane - `default-dp`.
+3. follow Software Hub 5.3 documentation https://www.ibm.com/docs/en/software-hub/5.3.x to install CPD Platform and Software Hub
+4. Run `cpd-cli manage enable-premuim-features --license_acceptance=true --features=physical-locations --operator_ns=<project name> --instance_ns=<project name> --scheduler_ns=<project>`
+5. Create two namespaces mgmt and workload(wl).
+6. Run `cpd-cli manage enable-default-data-plane --instance_ns=zen --management_ns=mgmt --workload_ns=wl` this command will create a default physical location - `default-pl` and a default dataplane - `default-dp`.
 
 overview of custom applocations included in this example, for demostating application types supported  
 |Name|Application Type|Folder||
