@@ -63,7 +63,7 @@ this instruction requires cpd 5.4.0
   ./cpd-cli manage update-custom-application-proxy-config \
   --instance_ns=zen \
   --app_name= mcp-context-forge-sqlite \
-  --app_run_id=<from create-dockerfile-application> \
+  --app_run_id=<get run id from `create-dockerfile-application` command or from `list-custom-applications` command > \
   --app_proxy_config_yaml=/tmp/work/mcp-gateway-forge.conf.yaml
   ```
 
@@ -144,7 +144,7 @@ this instruction requires cpd 5.4.0
     ./cpd-cli manage update-custom-application-proxy-config \
       --instance_ns=zen \
       --app_name= mcp-context-forge-postgresql \
-      --app_run_id=<from create-dockerfile-application> \
+      --app_run_id=<get run id from `create-dockerfile-application` command or from `list-custom-applications` command > \
       --app_proxy_config_yaml=/tmp/work/mcp-gateway-forge.conf.yaml
     ```
 
